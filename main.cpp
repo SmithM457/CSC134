@@ -6,25 +6,6 @@
 using namespace std;
 
 
-    /*
-CSC 134
-M5LAB1 - Choose Your Own Adventure
-[name]
-[date]
-This template serves as a starting point
-for your own program. We'll be using
-void functions to tell a simple story,
-where the user gets to make choices.
-
-You can fork this template by clicking on the name above, then click the three
-dots on the top right, and click 'fork repl'. This makes a copy for you to use.
-*/
-
-// Function Prototypes
-// Any functions you make will need to
-// be listed here, in this format, at the top.
-// This is so the compiler knows to save
-// room for them in the final program.
 void main_menu();
 void choice_front_door();
 void choice_backyard();
