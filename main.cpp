@@ -21,13 +21,35 @@ void choice_climb();
 
 // SHED SECTION
 void choice_shed();
+void choice_sheddoor();
+void choice_takekit();
 
 
 // SWINGS SECTION
 void choice_swings();
+void choice_getcloser();
+void choice_pickupdoll();
+void choice_sewarm();
+
+// **INDOORS SECTION**
+// KITCHEN SECTION
+void kitchen();
+void choice_mail();
+void choice_leavekitchen();
+
+// LIVINGROOM SECTION
+void livingroom();
 
 
+
+
+
+// EXTRA
 void choice_order_food();
+
+// GLOBAL VARIABLES
+bool HAS_KIT = false; // does player have sewing kit?
+bool HAS_KEY = false;
 
 
 int main() {
@@ -84,6 +106,10 @@ void choice_front_door() {
     choice_backyard();
   } else if (2 == choice) {
     choice_go_home();
+  } else {
+    cout << "That's not a valid choice, please try again." << endl;
+    cin.ignore(); // clear the user input
+    choice_front_door();  // try again
   }
 }
 
@@ -104,6 +130,10 @@ void choice_backyard() {
     choice_shed();
   } else if (3 == choice) {
     choice_swings();
+  } else {
+    cout << "That's not a valid choice, please try again." << endl;
+    cin.ignore(); // clear the user input
+    choice_backyard();  // try again
   }
 }
 
@@ -140,7 +170,11 @@ void choice_back_porch() {
     choice_bdoor();
   } else if (2 == choice) {
     choice_window();
-    }
+  } else {
+    cout << "That's not a valid choice, please try again." << endl;
+    cin.ignore(); // clear the user input
+    choice_back_porch();  // try again
+  }
 }
 
 void choice_bdoor() {
@@ -148,13 +182,14 @@ void choice_bdoor() {
     cout << "You hear a sound above you, and as your vision moves up, you see a large block falling towards you." << endl;
     cout << "Then, everything goes dark." << endl;
     cout << "*** GAME OVER ***" << endl;
+    main();
 }
 void choice_window() {
     cout << "Getting closer to the window, you can see the curtains swaying inside, and the glass appears missing." << endl;
     cout << "The bench looks sturdy enough to hold your weight, as long as you're careful." << endl;
     cout << "Do you:" << endl;
     cout << "1. Climb through the window" << endl;
-    cout << "2. Step away" << endl;
+    cout << "2. Step back" << endl;
     cout << "Choose: " << endl;
     int choice;
     cin >> choice;
@@ -168,7 +203,7 @@ void choice_climb() {
     cout << "You climb through the window, the bench protesting as you do so." << endl;
     cout << "As you step into the house, you find yourself in an old kitchen, the faint smell of mold and dust" << endl;
     cout << "attacking your nose." << endl;
-    cout << "Your adventure will continue soon!" << endl; // Continue here with a new section for inside
+    kitchen();
 }
 
 // SHED SECTION
@@ -180,7 +215,48 @@ void choice_shed() {
     cout << "1. Open the door" << endl;
     cout << "2. Walk away from the shed" << endl;
     cout << "Choose: " << endl;
+    int choice;
+    cin >> choice;
+    if (1 == choice) {
+    choice_sheddoor();
+  } else if (2 == choice) {
+    choice_backyard();
+  }
 }
+
+void choice_sheddoor() {
+  cout << "You open the door, the hinges creaking and cracking. Looking around," << endl;
+  cout << "there is much debris from the caved roof, but in the corner, a record player is" << endl;
+  cout << "turining slowly, likely the source of the strange melody you heard" << endl;
+  cout << endl;
+  cout << "A candle in the corner is burning low, casting shadows against the walls." << endl;
+  cout << "They dance in a strange, hypnotic way, warping due to the flicker of the flame" << endl;
+  cout << "and the obstructions in the room" << endl;
+  cout << endl;
+  cout << "Next to the record player is a sewing kit, with an odd stain on the pouch." << endl;
+  cout << "Do you:" << endl;
+  cout << "1. Take it" << endl;
+  cout << "2. Leave the shed" << endl;
+  cout << "Choose: " << endl;
+    int choice;
+    cin >> choice;
+    if (1 == choice) {
+    choice_takekit();
+  } else if (2 == choice) {
+    RE_SHED == false;
+    choice_backyard();
+  }
+}
+void choice_takekit() {
+  cout << "You pick up the sewing kit. You can make out a name on it: Susie." << endl;
+  HAS_KIT = true; // global variable
+  cout << "Suddenly, you hear a small, quiet giggle from somewhere behind you, but as you" << endl;
+  cout << "turn around, you don't see anything. However, the candle burns out, and you decide" << endl;
+  cout << "it's time to leave the shed" << endl;
+  choice_backyard();
+}
+
+
 
 // SWINGS SECTION
 void choice_swings() {
@@ -190,10 +266,132 @@ void choice_swings() {
     cout << "1. Get closer to the doll" << endl;
     cout << "2. Back away slowly" << endl;
     cout << "Choose: " << endl;
+    int choice;
+    cin >> choice;
+    if (1 == choice) {
+    choice_getcloser();
+  } else if (2 == choice) {
+    choice_backyard();
+  }
 }
 
+void choice_getcloser() {
+  cout << "As you get closer, you feel as though you are being watched, and a feelng of" << endl;
+  cout << "dread creeps within you" << endl;
+  cout << "The doll's dress looks old and worn, with odd stains you can't make out in the moonlight." << endl;
+  cout << "Looking closer, you notice that a small tear has formed where her left arm meets her body." << endl;
+  cout << "Do you:" << endl;
+    cout << "1. Pick her up" << endl;
+    cout << "2. Leave her alone" << endl;
+    if (HAS_KIT == true) {
+      cout << "3. Sew the tear in her arm" << endl;
+    }
+    cout << "Choose: " << endl;
+    int choice;
+    cin >> choice;
+    if (1 == choice) {
+    choice_pickupdoll();
+  } else if (2 == choice) {
+    choice_backyard();
+  } else if (3 == choice) {
+      if (HAS_KIT == true) {
+        choice_sewarm();
+      } else {
+        cout << "You can't do that yet" << endl; // spoiler free
+        cin.ignore(); // clear the user input
+        choice_getcloser();
+      }
+  }
+}
+
+void choice_pickupdoll() {
+  cout << "You reach out to grab the doll, and feel something press against your pocket." << endl;
+  cout << "When you look down, you don't see anything, but feel as though you're missing something." << endl;
+  cout << "Looking back at the doll, you notice a second doll sitting next to her, holding the sewing kit." << endl;
+  cout << "Before you can process the second doll, the first jumps towards you, with the sewing needle in her hand." << endl;
+  cout << "She slices into you, letting out a faint, ghostly giggle of a little girl." << endl;
+  cout << "Soon, you succumb to your wounds, and the last thing you see is a small doll" << endl;
+  cout << "standing over you, holding the sewing kit, and a pair of dark, old buttons." << endl;
+  cout << "*** GAME OVER ***" << endl;
+  main();
+}
+
+void choice_sewarm() {
+  cout << "You pull out the sewing kit and carefully sew the doll's arm on," << endl;
+  cout << "using the last little bit of thread in the kit." << endl;
+  cout << "You hear something behind you, but when you turn, you see nothing" << endl;
+  cout << "Turning your attention back to the doll, you see that in her place on the swing" << endl;
+  cout << "is a rusted key. You pick it up and return back to the yard." << endl;
+  HAS_KEY = true;
+  choice_backyard();
+}
+
+// **INDOORS SECTION**
+// KITCHEN SECTION
+void kitchen() {
+  cout << "Looking around the kitchen, there isn't much out of the ordinary." << endl;
+  cout << "The island has a stack of mail on top of it, there counter is covered with pots," << endl;
+  cout << "pans, and random cooking equipment. There's a doorway a few feet away," << endl;
+  cout << "but given the state of the place, you doubt there's any power." << endl;
+  cout << "Do you:" << endl;
+  cout << "1. Check around back" << endl;
+  cout << "2. Give up and go home" << endl;
+  int choice;
+  cout << "Choose: ";
+  cin >> choice;
+  if (1 == choice) {
+    choice_mail();
+  } else if (2 == choice) {
+    choice_leavekitchen();
+  } else {
+    cout << "That's not a valid choice, please try again." << endl;
+    cin.ignore(); // clear the user input
+    kitchen();  // try again
+  }
+}
+
+void choice_mail() {
+  cout << "You approach the pile of mail, and begin searchng through it." << endl;
+  cout << "There are bills, magazines, newspapers, political ads, and personal letters." << endl;
+  cout << "Skimming through some of the newspapers, you see one that catches your eye. It's got a" << endl;
+  cout << "comic article about some guy turning himself into a pickle. How crazy!" << endl;
+  cout << "As you laugh to yourself, another article catches your attention, dated two years ago" << endl;
+  cout << "It's about a murder happening in a local area, a few towns over, carried out by someone only known as 'The Butcher'." << endl;
+  cout << "The details are gruesome, and you shiver as you set the paper down, stepping away from the" << endl;
+  cout << "kitchen island, and leaving the kitchen." << endl;
+  choice_leavekitchen();
+}
+
+void choice_leavekitchen() {
+  livingroom();
+}
+
+void livingroom() {
+  cout << "Stepping out of the kitchen, you find yourself in a large living room, which looks relatively new" << endl;
+  cout << "compared to the kitchen. The couches are covered in a clear tarp, the wallpaper doesn't seem to be peeling" << endl;
+  cout << "as bad, and the air feels less stagnant. The moonlight shines through the windows, the curtains" << endl;
+  cout << "sitting open and still." << endl;
+  cout << "You can see a set of stairs nearby, close to what appears to be a closet. Next to that" << endl;
+  cout << "is the front door. Near the couches is an old fireplace, and a bookshelf against a nearby wall sits filled" << endl;
+  cout << "with old books." << endl;
+  cout << "Do you:" << endl;
+  cout << "1. Check the bookshelf" << endl;
+  cout << "2. Check the fireplace" << endl;
+  cout << "3. Look in the closet" << endl;
+  cout << "4. Go upstairs" << endl;
+  cout << "5. Leave the house" << endl;
+  cout << endl;
+  cout << "However, unfortunately you have reached the end of the demo. I know it's cut short," << endl;
+  cout << "but this will not be the end. Thank you for playing my final!" << endl;
+  main();
+
+
+
+
 void choice_order_food() {
-    cout << "You order some food." << endl;
+    cout << "You order some food, and enjoy some nice pizza for the night." << endl;
+    cout << "Ending 3" << endl;
+    main();
 }
 
 // cout << "" << endl;
